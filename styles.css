@@ -11,6 +11,94 @@ body {
     min-height: 100vh;
     color: #333;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* 下雪動畫 */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    z-index: 1000;
+    user-select: none;
+    cursor: default;
+    animation-name: snowflakes-fall, snowflakes-shake;
+    animation-duration: 10s, 3s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-play-state: running, running;
+}
+
+.snowflake:nth-of-type(1) {
+    left: 10%;
+    animation-delay: 1s, 1s;
+}
+
+.snowflake:nth-of-type(2) {
+    left: 20%;
+    animation-delay: 6s, 0.5s;
+}
+
+.snowflake:nth-of-type(3) {
+    left: 30%;
+    animation-delay: 4s, 2s;
+}
+
+.snowflake:nth-of-type(4) {
+    left: 40%;
+    animation-delay: 2s, 2s;
+}
+
+.snowflake:nth-of-type(5) {
+    left: 50%;
+    animation-delay: 8s, 3s;
+}
+
+.snowflake:nth-of-type(6) {
+    left: 60%;
+    animation-delay: 6s, 2s;
+}
+
+.snowflake:nth-of-type(7) {
+    left: 70%;
+    animation-delay: 2.5s, 1s;
+}
+
+.snowflake:nth-of-type(8) {
+    left: 80%;
+    animation-delay: 1s, 0s;
+}
+
+.snowflake:nth-of-type(9) {
+    left: 90%;
+    animation-delay: 3s, 1.5s;
+}
+
+.snowflake:nth-of-type(10) {
+    left: 25%;
+    animation-delay: 2s, 0s;
+}
+
+.snowflake:nth-of-type(11) {
+    left: 75%;
+    animation-delay: 4s, 2.5s;
+}
+
+@keyframes snowflakes-fall {
+    0% {
+        top: -10px;
+    }
+    100% {
+        top: 100vh;
+    }
+}
+
+@keyframes snowflakes-shake {
+    0%, 100% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(80px);
+    }
 }
 
 /* 儀表板容器 */
@@ -238,7 +326,112 @@ body {
 /* 用電量統計區塊 */
 .power-consumption {
     grid-column: 2 / 3;
-    grid-row: 1 / 3;
+    grid-row: 1 / 2;
+}
+
+/* 天氣預報區塊 */
+.weather-forecast {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.weather-current {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.weather-icon {
+    font-size: 48px;
+    margin-right: 15px;
+}
+
+.weather-info {
+    flex: 1;
+}
+
+.temperature {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.weather-desc {
+    font-size: 16px;
+    margin-bottom: 3px;
+    opacity: 0.9;
+}
+
+.location {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.detail-label {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.detail-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.weather-forecast-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.forecast-item:hover {
+    transform: translateY(-2px);
+    background: #e9ecef;
+}
+
+.forecast-day {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.forecast-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.forecast-temp {
+    font-size: 12px;
+    color: #2c3e50;
+    font-weight: 600;
 }
 
 .time-toggle {
@@ -327,7 +520,7 @@ body {
 /* 最高用電時段區塊 */
 .peak-usage {
     grid-column: 3 / 4;
-    grid-row: 1 / 2;
+    grid-row: 1 / 3;
 }
 
 .peak-info {
@@ -360,7 +553,7 @@ body {
 /* 耗電量最高家電區塊 */
 .top-consumer {
     grid-column: 1 / 2;
-    grid-row: 2 / 3;
+    grid-row: 2 / 4;
 }
 
 .top-appliance {
@@ -460,7 +653,7 @@ body {
 /* 即時監控區塊 */
 .real-time-monitor {
     grid-column: 3 / 4;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
 }
 
 .monitor-grid {
@@ -496,7 +689,7 @@ body {
 /* 節能建議區塊 */
 .energy-tips {
     grid-column: 1 / 4;
-    grid-row: 3 / 4;
+    grid-row: 4 / 5;
 }
 
 .tips-list {
@@ -551,27 +744,32 @@ body {
     
     .power-consumption {
         grid-column: 2 / 3;
-        grid-row: 1 / 3;
+        grid-row: 1 / 2;
+    }
+    
+    .weather-forecast {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
     }
     
     .peak-usage {
         grid-column: 1 / 2;
-        grid-row: 2 / 3;
+        grid-row: 2 / 4;
     }
     
     .top-consumer {
-        grid-column: 2 / 3;
-        grid-row: 3 / 4;
+        grid-column: 1 / 2;
+        grid-row: 4 / 5;
     }
     
     .real-time-monitor {
-        grid-column: 1 / 2;
+        grid-column: 2 / 3;
         grid-row: 3 / 4;
     }
     
     .energy-tips {
         grid-column: 1 / 3;
-        grid-row: 4 / 5;
+        grid-row: 5 / 6;
     }
 }
 
