@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧家庭電器儀表板</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <h1>智慧家庭電器儀表板</h1>
+            <div class="header-info">
+                <span class="current-time" id="currentTime"></span>
+                <span class="current-date" id="currentDate"></span>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- 家電狀態區塊 -->
+            <div class="card appliance-status">
+                <h2><span class="section-icon">🏠</span>家電狀態</h2>
+                <div class="appliance-grid">
+                    <div class="appliance-item" data-appliance="ac">
+                        <div class="appliance-icon">❄️</div>
+                        <div class="appliance-info">
+                            <h3>冷氣</h3>
+                            <p class="status" id="acStatus">開啟</p>
+                            <p class="power">2.5 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="acToggle" checked>
+                            <label for="acToggle"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="appliance-item" data-appliance="light">
+                        <div class="appliance-icon">💡</div>
+                        <div class="appliance-info">
+                            <h3>燈光</h3>
+                            <p class="status" id="lightStatus">開啟</p>
+                            <p class="power">0.3 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="lightToggle" checked>
+                            <label for="lightToggle"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="appliance-item" data-appliance="tv">
+                        <div class="appliance-icon">📺</div>
+                        <div class="appliance-info">
+                            <h3>電視</h3>
+                            <p class="status" id="tvStatus">關閉</p>
+                            <p class="power">0.0 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="tvToggle">
+                            <label for="tvToggle"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="appliance-item" data-appliance="fridge">
+                        <div class="appliance-icon">🧊</div>
+                        <div class="appliance-info">
+                            <h3>冰箱</h3>
+                            <p class="status" id="fridgeStatus">開啟</p>
+                            <p class="power">0.8 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="fridgeToggle" checked>
+                            <label for="fridgeToggle"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 用電量統計區塊 -->
+            <div class="card power-consumption">
+                <h2><span class="section-icon">📊</span>用電量統計</h2>
+                <div class="time-toggle">
+                    <button class="toggle-btn active" data-period="week">本週</button>
+                    <button class="toggle-btn" data-period="month">本月</button>
+                </div>
+                <div class="consumption-display">
+                    <div class="consumption-value">
+                        <span class="value" id="consumptionValue">156.8</span>
+                        <span class="unit">kWh</span>
+                    </div>
+                    <div class="consumption-change">
+                        <span class="change-arrow">↗</span>
+                        <span class="change-value">+12.3%</span>
+                        <span class="change-period">較上期</span>
+                    </div>
+                </div>
+                <div id="consumptionChart" class="chart-container"></div>
+            </div>
+
+            <!-- 最高用電時段區塊 -->
+            <div class="card peak-usage">
+                <h2><span class="section-icon">⏰</span>最高用電時段</h2>
+                <div class="peak-info">
+                    <div class="peak-time">
+                        <span class="time-label">時段</span>
+                        <span class="time-value" id="peakTime">19:00 - 21:00</span>
+                    </div>
+                    <div class="peak-power">
+                        <span class="power-label">用電量</span>
+                        <span class="power-value" id="peakPower">4.2 kW</span>
+                    </div>
+                </div>
+                <div id="dailyUsageChart" class="chart-container"></div>
+            </div>
+
+            <!-- 耗電量最高家電區塊 -->
+            <div class="card top-consumer">
+                <h2><span class="section-icon">🔝</span>耗電量最高家電</h2>
+                <div class="top-appliance">
+                    <div class="appliance-icon-large">❄️</div>
+                    <div class="appliance-details">
+                        <h3 id="topApplianceName">冷氣</h3>
+                        <p class="consumption-detail">
+                            <span class="current-power" id="topAppliancePower">2.5 kW</span>
+                            <span class="percentage" id="topAppliancePercentage">45%</span>
+                        </p>
+                        <p class="usage-time" id="topApplianceTime">已使用 3 小時 25 分鐘</p>
+                    </div>
+                </div>
+                <div class="appliance-ranking">
+                    <h4>家電耗電排行</h4>
+                    <div class="ranking-list" id="applianceRanking">
+                        <!-- 將由 JavaScript 動態生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 即時監控區塊 -->
+            <div class="card real-time-monitor">
+                <h2><span class="section-icon">📈</span>即時監控</h2>
+                <div class="monitor-grid">
+                    <div class="monitor-item">
+                        <span class="monitor-label">總用電量</span>
+                        <span class="monitor-value" id="totalPower">3.6 kW</span>
+                    </div>
+                    <div class="monitor-item">
+                        <span class="monitor-label">今日用電</span>
+                        <span class="monitor-value" id="todayUsage">12.8 kWh</span>
+                    </div>
+                    <div class="monitor-item">
+                        <span class="monitor-label">本月預估</span>
+                        <span class="monitor-value" id="monthlyEstimate">385 kWh</span>
+                    </div>
+                    <div class="monitor-item">
+                        <span class="monitor-label">電費預估</span>
+                        <span class="monitor-value" id="costEstimate">$1,540</span>
+                    </div>
+                </div>
+                <div id="realtimeChart" class="chart-container"></div>
+            </div>
+
+            <!-- 節能建議區塊 -->
+            <div class="card energy-tips">
+                <h2><span class="section-icon">💡</span>節能建議</h2>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">💡</div>
+                        <div class="tip-content">
+                            <h4>調整冷氣溫度</h4>
+                            <p>建議將冷氣溫度調高 1-2°C，可節省約 10% 用電量</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">⏰</div>
+                        <div class="tip-content">
+                            <h4>設定定時關閉</h4>
+                            <p>為不常用的家電設定定時功能，避免不必要的耗電</p>
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🔌</div>
+                        <div class="tip-content">
+                            <h4>拔除待機電器</h4>
+                            <p>電視、電腦等電器的待機模式仍會消耗電力</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

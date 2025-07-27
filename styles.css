@@ -1,0 +1,619 @@
+/* 全域樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* 儀表板容器 */
+.dashboard {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* 標題區域 */
+.dashboard-header {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.current-time {
+    font-size: 18px;
+    font-weight: 500;
+    color: #3498db;
+}
+
+.current-date {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+/* 網格佈局 */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    grid-auto-rows: minmax(auto, auto);
+}
+
+/* 卡片樣式 */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ecf0f1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-icon {
+    font-size: 24px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .section-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* 家電狀態區塊 */
+.appliance-status {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.appliance-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.appliance-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.appliance-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.appliance-icon {
+    font-size: 24px;
+    margin-right: 15px;
+    width: 40px;
+    text-align: center;
+}
+
+.appliance-info {
+    flex: 1;
+}
+
+.appliance-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.appliance-info .status {
+    font-size: 14px;
+    color: #27ae60;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.appliance-info .status.off {
+    color: #e74c3c;
+}
+
+.appliance-info .power {
+    font-size: 12px;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+/* 開關樣式 - 參考 CodePen 設計 */
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(145deg, #e6e6e6, #ffffff);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 34px;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.toggle-switch label:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 3px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.toggle-switch input:checked + label {
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.toggle-switch input:checked + label:before {
+    transform: translateX(26px);
+    background: linear-gradient(145deg, #ffffff, #f8f8f8);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.toggle-switch input:focus + label {
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.toggle-switch:hover label {
+    transform: scale(1.05);
+}
+
+/* 用電量統計區塊 */
+.power-consumption {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+}
+
+.time-toggle {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: white;
+    color: #3498db;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.consumption-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.consumption-value {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.consumption-value .value {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.consumption-value .unit {
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.consumption-change {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.change-arrow {
+    font-size: 16px;
+    color: #2ecc71;
+}
+
+.change-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2ecc71;
+}
+
+.change-period {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.chart-container {
+    height: 200px;
+    margin-top: 15px;
+}
+
+/* 最高用電時段區塊 */
+.peak-usage {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+
+.peak-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.peak-time, .peak-power {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.time-label, .power-label {
+    font-size: 12px;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.time-value, .power-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* 耗電量最高家電區塊 */
+.top-consumer {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.top-appliance {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.appliance-icon-large {
+    font-size: 36px;
+    margin-right: 15px;
+}
+
+.appliance-details h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.consumption-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.current-power {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e67e22;
+}
+
+.percentage {
+    font-size: 14px;
+    color: #7f8c8d;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.usage-time {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.appliance-ranking h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.ranking-item:nth-child(1) {
+    border-left-color: #e74c3c;
+}
+
+.ranking-item:nth-child(2) {
+    border-left-color: #f39c12;
+}
+
+.ranking-item:nth-child(3) {
+    border-left-color: #f1c40f;
+}
+
+.ranking-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.ranking-power {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e67e22;
+}
+
+/* 即時監控區塊 */
+.real-time-monitor {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+
+.monitor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.monitor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.monitor-label {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.monitor-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* 節能建議區塊 */
+.energy-tips {
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+}
+
+.tips-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #27ae60;
+    transition: transform 0.2s ease;
+}
+
+.tip-item:hover {
+    transform: translateY(-2px);
+}
+
+.tip-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.tip-content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.tip-content p {
+    font-size: 14px;
+    color: #7f8c8d;
+    line-height: 1.5;
+}
+
+/* 響應式設計 */
+@media (max-width: 1400px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .appliance-status {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    
+    .power-consumption {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+    }
+    
+    .peak-usage {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+    }
+    
+    .top-consumer {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+    }
+    
+    .real-time-monitor {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+    }
+    
+    .energy-tips {
+        grid-column: 1 / 3;
+        grid-row: 4 / 5;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tips-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .header-info {
+        align-items: center;
+    }
+}
+
+/* 動畫效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; } 
